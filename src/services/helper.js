@@ -20,15 +20,31 @@ export async function getAllChampion() {
   
     // Create an object with champion names indexed by champion ID
     const champions = {};
-    for (const [key, value] of Object.entries(championData)) {
+    for (const [key, value] of Object.entries(championData)) { 
       champions[value.key] = {
         name: value.name,
-        img: `http://ddragon.leagueoflegends.com/cdn/11.6.1/img/champion/${key}.png`,
+        img: `http://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${key}.png`,
       }
      
     }
   
     return champions;
+  }
+
+  export async function getAllSummonerSpells() {
+    const resp = await axios.get(`https://ddragon.leagueoflegends.com/cdn/12.6.1/data/fr_FR/summoner.json`);
+    const spellData = resp.data.data;
+  
+    // Create an object with spell img indexed by key
+    const spells = {};
+    for (const [key, value] of Object.entries(spellData)) {
+      spells[value.key] = {
+        name: value.name,
+        img: `http://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${key}.png`,
+      }
+     
+    }
+    return spells;
   }
   
 // export async function getChampionImg(championName) {

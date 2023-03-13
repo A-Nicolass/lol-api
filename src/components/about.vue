@@ -11,8 +11,6 @@
         <li v-for="(participant, index) in participants" :key="index">
           <div>
             <img :src="participant.championImg" :alt="participant.championName" width="50">
-            <img :src="participant.spell1Img" :alt="participant.spell1Name" width="20">
-            <img :src="participant.spell2Img" :alt="participant.spell2Name" width="20">
             {{ participant.summonerName }} - {{ participant.championName }}
           </div>
           <!-- <div>
@@ -31,7 +29,7 @@
 </template>
 
 <script>
-import { getSummoner, getGame, getAllChampion, getAllSummonerSpells } from "../services/helper.js";
+import { getSummoner, getGame, getAllChampion } from "../services/helper.js";
 
 export default {
   data() {
@@ -43,7 +41,6 @@ export default {
       apiKey: "RGAPI-d6d99e03-7663-4465-aaf6-cf837f93f137", // Replace with your actual API key
       dataDragonVersion: "12.6.1", // Replace with the current Data Dragon version
       championData: {}, // Add this property
-      spellData: {},
       
     };
   },
@@ -51,8 +48,6 @@ export default {
   const championData = await getAllChampion();
   console.log(championData)
   this.championData = championData;
-  const spellData = await getAllSummonerSpells();
-  this.spellData = spellData;
 },
 
     methods: {
@@ -70,10 +65,6 @@ export default {
         ...participant,
         championName: this.championData[participant.championId].name,
         championImg: this.championData[participant.championId].img,
-        spell1Name: this.spellData[participant.spell1Id].name,
-        spell2Name: this.spellData[participant.spell2Id].name,
-        spell1Img: this.spellData[participant.spell1Id].img,
-        spell2Img: this.spellData[participant.spell2Id].img,
       };
     });
     
@@ -93,9 +84,9 @@ export default {
     // getChampionImageUrl(championId) {
     //   return `http://ddragon.leagueoflegends.com/cdn/${this.dataDragonVersion}/img/champion/${championId}.png`;
     // },
-    getSpellImageUrl(spellId) {
-      return `http://ddragon.leagueoflegends.com/cdn/${this.dataDragonVersion}/img/spell/${spellId}.png`;
-    }
+    // getSpellImageUrl(spellId) {
+    //   return `http://ddragon.leagueoflegends.com/cdn/${this.dataDragonVersion}/img/spell/${spellId}.png`;
+    // }
 
   }
 };
