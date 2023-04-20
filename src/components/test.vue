@@ -60,7 +60,6 @@ export default {
   },
   async created() {
     const championData = await getAllChampion();
-    console.log(championData);
     this.championData = championData;
     const spellData = await getAllSummonerSpells();
     this.spellData = spellData;
@@ -73,8 +72,6 @@ export default {
       try {
         const summoner = await getSummoner(this.summonerName);
         const game = await getGame(summoner.id);
-        console.log(summoner.id);
-        console.log(game);
 
         // Replace champion ID with champion name
         const participants = game.map((participant) => {
@@ -91,11 +88,9 @@ export default {
 
         this.summoner = summoner;
         this.participants = participants;
-
-        console.log(participants);
       } catch (error) {
         console.error(error);
-        alert("Error fetching data!");
+        alert("Cette personne n'est pas en game !");
       }
 
       this.loading = false;
